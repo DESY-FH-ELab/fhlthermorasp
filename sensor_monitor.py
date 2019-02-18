@@ -98,7 +98,9 @@ class SensorMonitor ( object ) :
 			fields = sensor.get_sensor_fields ( )
 			reading = sensor.read ( )
 			reading_dict = None
-			if reading and reading.is_valid :
+			if not reading :
+				continue
+			if reading.is_valid :
 				reading_dict = dict ( )
 				for field in fields :
 					reading_dict[field] = getattr ( reading, field )
