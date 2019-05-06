@@ -304,9 +304,6 @@ class SHT75(ShtComms):
 		assert self.voltage in self.c.d1, [self.voltage, self.c.d1.keys()]
 		super(SHT75, self).__init__(pin_sck, pin_data, **sht_comms_kws)
 
-	def get_sensor_name(self):
-		return "SHT75"
-
 	def read(self):
 		t = self.read_t()
 		h = self.read_rh()
@@ -343,6 +340,7 @@ class SHT75(ShtComms):
 			tn * (math.log(rh / 100.0) + (m * t) / (tn + t))
 			/ (m - math.log(rh / 100.0) - m * t / (tn + t)) )
 
+	@staticmethod
 	def detect_sensors():
 		try:
 			sensors = [SHT75(21, 20)] #Default bus is 1, default address is 0x40
@@ -350,6 +348,15 @@ class SHT75(ShtComms):
 			sensors = []
 		#TODO: Not just probe the default pins
 		return sensors
+		
+	def get_sensor_name(self):
+		return "SHT75_PIN%i" % self.pin_data
+		
+	def get_sensor_type_name(self):
+		return "SHT75"
+		
+	def get_sensor_options(self):
+		return (self.pin_sck, self.pin_data, self.voltage)
 
 	def get_sensor_fields(self):
 		return ["temp", "hum"]
