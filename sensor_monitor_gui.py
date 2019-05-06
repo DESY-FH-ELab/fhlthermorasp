@@ -370,7 +370,7 @@ class SensorMonitorWindow(Gtk.Window):
 	def __init__(self, config_file_path = "sensor_monitor_settings.json"):
 		Gtk.Window.__init__(self, title="Sensor Monitor")
 		self.set_border_width(10)
-		self.set_default_size(400, 500)
+		self.set_default_size(400, 550)
 		
 		self._main_box = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing = 5)
 		self.add(self._main_box)
